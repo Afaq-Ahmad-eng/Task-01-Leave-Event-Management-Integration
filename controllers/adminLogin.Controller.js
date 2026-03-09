@@ -30,9 +30,13 @@ export const adminLogin = async (req, res) => {
 
         const refreshToken = adminRefreshToken(existingAdmin._id);
        
-        const refreshTokenSave = new adminRefreshTokenForDB({
-            adminId: existingAdmin._id,
+        await adminRefreshTokenForDB.findOneAndUpdate({
+            adminId: existingAdmin._id
+        }, {
             refreshToken: refreshToken
+        }, {
+            upsert: true,
+            new: true
         });
  
         res.cookie("adminRefreshToken", refreshToken, {
@@ -42,8 +46,6 @@ export const adminLogin = async (req, res) => {
             maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
             path: "/",
         });
-        
-        await refreshTokenSave.save();
         
         res.status(200).json({
             message: "Admin login successful",
