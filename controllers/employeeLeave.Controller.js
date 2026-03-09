@@ -2,7 +2,7 @@ import EmployeeLeave from "../models/employeeLeaveModel.js";
 import Employee from "../models/employeeRegistrationModel.js";
 import employeeLeaveValidation from "../validations/employeeLeaveValidation.js";
 export const employeeleave = async (req, res) => {
-    console.log("we reached to the employee leave endpoint ", req.body);
+    
     const validation = employeeLeaveValidation(req.body);
     if(validation.details){
         return res.status(400).json({
@@ -16,12 +16,10 @@ export const employeeleave = async (req, res) => {
             })
         }
 
-        console.log("existing user ", existingUser);
         const employeeOnLeave = await EmployeeLeave.findOne({
             employeeId: existingUser._id,
         }).sort({ createdAt: -1 });
 
-        console.log("employee on leave ", employeeOnLeave);
          if(employeeOnLeave && employeeOnLeave.startDate <= validation.endDate && employeeOnLeave.endDate >= validation.startDate){
             return res.status(400).json({
                 message: "Dear employee you have on leave and you don't allow that you paste a another leave request!",
@@ -42,9 +40,8 @@ export const employeeleave = async (req, res) => {
                 leaveId: leave._id
             })
         }catch(error){
-            console.log("we get the error ",error)
         return res.status(400).json({
-            message: " there is error ",
+            message: "Error occurred while processing leave request",
             data: error
         })
     }}
