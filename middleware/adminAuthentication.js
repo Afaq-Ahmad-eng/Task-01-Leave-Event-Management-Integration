@@ -3,11 +3,11 @@ import { verifyJWTToken, adminRefreshToken, adminToken } from "../utils/jwtToken
 import dotenv from "dotenv";
 dotenv.config();
 
-
 export const adminAuthenticationHandler = async (req, res, next) => {
   
   if (!req.headers.cookie) {
     return res.status(401).json({
+      success: false,
       message: "Unauthorized: No token provided",
     });
   }
@@ -34,8 +34,8 @@ export const adminAuthenticationHandler = async (req, res, next) => {
         process.env.JWT_REFRESH_TOKEN_KEY,
       );
     } catch (error) {
-      console.log("Error in verifying refresh token ", error);
       return res.status(401).json({
+        success: false,
         message: "Unauthorized: Invalid refresh token",
         data: error,
       });
@@ -48,16 +48,20 @@ export const adminAuthenticationHandler = async (req, res, next) => {
 
     if (refreshTokenOfAdmin !== adminRefreshTokenFromDB.refreshToken) {
       return res.status(401).json({
+        success: false,
         message: "Unauthorized: Invalid token",
+        adminRedirectToLogin: true
       });
     }
 
   if (!decodedToken && !decodedRefreshToken) {
     return res.status(401).json({
+      success: false,
       message: "Unauthorized: Invalid token",
     });
   }
-  // && refreshTokenOfAdmin === adminRefreshTokenFromDB.refreshToken
+
+
   let newAdminRefreshToken = undefined;
   if (!decodedToken && decodedRefreshToken && refreshTokenOfAdmin === adminRefreshTokenFromDB.refreshToken) {
       newAdminRefreshToken = adminRefreshToken(decodedRefreshToken.adminId);
