@@ -10,29 +10,27 @@ already implemented Attendance system.
 
 ## Module 1: Leave Management System (Completed)
 ### Employee Side: 
-   [] Employee should be able to apply for leave.  
-   [] Required fields: 
+   - [ ] Employee should be able to apply for leave.  
+   - [ ] Required fields: 
        - Leave Type (Casual / Sick / Emergency) 
        - Start Date 
        - End Date 
        - Reason 
-  [] Proper validation must be implemented: 
+  - [ ] Proper validation must be implemented: 
         - End date cannot be before start date. 
         - Overlapping leave requests should not be allowed. 
 ### Admin Side: 
-  [] Admin should be able to: 
+  - [ ] Admin should be able to: 
         - View all leave requests. 
         - Approve or reject requests. 
         - Add optional remarks. 
 ### Attendance Integration: 
-  [] If leave is approved: 
+  - [ ] If leave is approved: 
        - Automatically mark those dates as “Leave” in the existing attendance system. 
        - Attendance for those dates should not be manually editable. 
-  [] If leave is rejected:
+  - [ ] If leave is rejected:
        - No changes should be made to attendance.
 
 
 ## Author: 
   Afaq Ahmad
-       
-o No changes should be made to attendance.
