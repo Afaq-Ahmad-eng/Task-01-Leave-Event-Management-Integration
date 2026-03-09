@@ -18,5 +18,5 @@ adminRouter.post('/admin-login', adminLoginValidation, adminLogin);
 adminRouter.get('/admin-panel', adminAuthenticationHandler, adminPanel);
 
 // Approve or reject leave request route (protected)
-adminRouter.post('/admin-approve-or-reject-leave', adminAuthenticationHandler, approveOrRejectLeave);
+adminRouter.post('/admin-approve-or-reject-leave/:leaveId', adminAuthenticationHandler, approveOrRejectLeave);
 export default adminRouter;
