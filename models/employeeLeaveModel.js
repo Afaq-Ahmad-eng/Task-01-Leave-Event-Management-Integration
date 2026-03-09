@@ -45,6 +45,10 @@ const employeeLeaveSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    isLocked:{
+        type: Boolean,
+        default: false
+    },
     appliedAt:{
         type: Date,
         default: Date.now
