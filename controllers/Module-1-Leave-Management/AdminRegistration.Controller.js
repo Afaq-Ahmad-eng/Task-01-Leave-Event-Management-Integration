@@ -1,4 +1,4 @@
-import adminRegistration from "../models/AdminRegistrationModel.js";
+import adminRegistration from "../models/Module-1-Leave-Management/AdminRegistrationModel.js";
 import { employeeRegistrationPasswordHash } from "../utils/passwordHash.js";
 import adminRegistrationValidationHandler from "../validations/adminRegistrationValidation.js";
 

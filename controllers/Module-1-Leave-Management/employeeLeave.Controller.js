@@ -1,5 +1,5 @@
-import EmployeeLeave from "../models/employeeLeaveModel.js";
-import Employee from "../models/employeeRegistrationModel.js";
+import EmployeeLeave from "../models/Module-1-Leave-Management/employeeLeaveModel.js";
+import Employee from "../models/Module-1-Leave-Management/employeeRegistrationModel.js";
 import employeeLeaveValidation from "../validations/employeeLeaveValidation.js";
 export const employeeleave = async (req, res) => {
     

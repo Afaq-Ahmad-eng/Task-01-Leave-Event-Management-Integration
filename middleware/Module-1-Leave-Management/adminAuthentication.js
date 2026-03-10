@@ -1,4 +1,4 @@
-import adminRefreshTokenForDB from "../models/AdminRefreshToken.js";
+import adminRefreshTokenForDB from "../models/Module-1-Leave-Management/AdminRefreshToken.js";
 import { verifyJWTToken, adminRefreshToken, adminToken } from "../utils/jwtToken.js";
 import dotenv from "dotenv";
 dotenv.config();

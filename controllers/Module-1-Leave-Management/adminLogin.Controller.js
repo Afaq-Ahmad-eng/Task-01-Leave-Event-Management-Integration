@@ -1,7 +1,7 @@
-import adminRegistration from "../models/AdminRegistrationModel.js";
+import adminRegistration from "../models/Module-1-Leave-Management/AdminRegistrationModel.js";
 import { employeeLoginPasswordVerification } from  "../utils/passwordHash.js"
 import { adminToken, adminRefreshToken } from "../utils/jwtToken.js";
-import adminRefreshTokenForDB from "../models/AdminRefreshToken.js";
+import adminRefreshTokenForDB from "../models/Module-1-Leave-Management/AdminRefreshToken.js";
 
 export const adminLogin = async (req, res) => {
     const { AdminEmail, AdminPassword } = req.body;

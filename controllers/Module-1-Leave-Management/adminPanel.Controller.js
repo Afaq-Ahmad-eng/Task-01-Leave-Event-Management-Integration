@@ -1,4 +1,4 @@
-import EmployeeLeave from "../models/employeeLeaveModel.js";
+import EmployeeLeave from "../models/Module-1-Leave-Management/employeeLeaveModel.js";
 
 const adminPanel = async (req, res) => {
 
