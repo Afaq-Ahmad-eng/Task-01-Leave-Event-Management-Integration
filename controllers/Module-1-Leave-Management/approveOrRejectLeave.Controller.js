@@ -1,4 +1,4 @@
-import EmployeeLeave from "../models/Module-1-Leave-Management/employeeLeaveModel.js";
+import EmployeeLeave from "../../models/Module-1-Leave-Management/employeeLeaveModel.js";
 
 export const approveOrRejectLeave = async(req,res) =>{
     try{

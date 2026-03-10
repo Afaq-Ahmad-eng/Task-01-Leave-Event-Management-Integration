@@ -1,10 +1,10 @@
 import express from 'express'
-import adminController from '../../controllers/AdminRegistration.Controller.js'
+import adminController from '../../controllers/Module-1-Leave-Management/AdminRegistration.Controller.js'
 import adminLoginValidation  from '../../validations/Module-1-Leave-Management/adminLoginValidation.js'
-import { adminLogin } from '../../controllers/adminLogin.Controller.js'    
-import { adminAuthenticationHandler } from '../../middleware/adminAuthentication.js'
-import adminPanel from '../../controllers/adminPanel.Controller.js'
-import { approveOrRejectLeave } from '../../controllers/approveOrRejectLeave.Controller.js'
+import { adminLogin } from '../../controllers/Module-1-Leave-Management/adminLogin.Controller.js'    
+import { adminAuthenticationHandler } from '../../middleware/Module-1-Leave-Management/adminAuthentication.js'
+import adminPanel from '../../controllers/Module-1-Leave-Management/adminPanel.Controller.js'
+import { approveOrRejectLeave } from '../../controllers/Module-1-Leave-Management/approveOrRejectLeave.Controller.js'
 const adminRouter = express.Router();
 
 

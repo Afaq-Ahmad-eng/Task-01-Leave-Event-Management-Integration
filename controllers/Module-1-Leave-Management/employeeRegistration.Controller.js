@@ -1,6 +1,6 @@
-import Employee from "../models/Module-1-Leave-Management/employeeRegistrationModel.js";
-import { employeeRegistrationPasswordHash } from "../utils/passwordHash.js"
-import { validationOfEmployeeRegistrationData } from "../validations/employeeRegistrationValidation.js";
+import Employee from "../../models/Module-1-Leave-Management/employeeLeaveModel.js";
+import { employeeRegistrationPasswordHash } from "../../utils/Module-1-Leave-Management/passwordHash.js";
+import { validationOfEmployeeRegistrationData } from "../../validations/Module-1-Leave-Management/employeeRegistrationValidation.js";
 export const employeeRegistration = async (req,res) => {
     try{
     const validationResult = validationOfEmployeeRegistrationData(req.body);

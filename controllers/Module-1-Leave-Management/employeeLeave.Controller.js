@@ -1,6 +1,6 @@
-import EmployeeLeave from "../models/Module-1-Leave-Management/employeeLeaveModel.js";
-import Employee from "../models/Module-1-Leave-Management/employeeRegistrationModel.js";
-import employeeLeaveValidation from "../validations/employeeLeaveValidation.js";
+import EmployeeLeave from "../../models/Module-1-Leave-Management/employeeLeaveModel.js";
+import Employee from "../../models/Module-1-Leave-Management/AdminRefreshToken.js";
+import employeeLeaveValidation from "../../validations/Module-1-Leave-Management/employeeLeaveValidation.js";
 export const employeeleave = async (req, res) => {
     
     const validation = employeeLeaveValidation(req.body);

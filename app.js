@@ -1,8 +1,8 @@
 import express from 'express'
-import router from './routes/employeeLeave.Routes.js';
-import employeeRegistrationRoute from './routes/employeeRegistration.Routes.js';
+import router from './routes/Module-1-Leave-Management/employeeLeave.Routes.js';
+import employeeRegistrationRoute from './routes/Module-1-Leave-Management/employeeRegistration.Routes.js';
 import { connectDB } from './config/database.js';
-import adminRouter from './routes/Admin.Routes.js';
+import adminRouter from './routes/Module-1-Leave-Management/Admin.Routes.js';
 import cookieParser from 'cookie-parser';
 
 const app = express();

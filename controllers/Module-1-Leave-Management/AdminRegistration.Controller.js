@@ -1,6 +1,6 @@
-import adminRegistration from "../models/Module-1-Leave-Management/AdminRegistrationModel.js";
-import { employeeRegistrationPasswordHash } from "../utils/passwordHash.js";
-import adminRegistrationValidationHandler from "../validations/adminRegistrationValidation.js";
+import adminRegistration from "../../models/Module-1-Leave-Management/AdminRegistrationModel.js";
+import { employeeRegistrationPasswordHash } from "../../utils/Module-1-Leave-Management/passwordHash.js";
+import adminRegistrationValidationHandler from "../../validations/Module-1-Leave-Management/adminRegistrationValidation.js";
 
 const Admin = async (req, res) => {
   const existingAdmin = await adminRegistration.findOne({
