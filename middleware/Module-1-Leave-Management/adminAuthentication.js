@@ -4,11 +4,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const adminAuthenticationHandler = async (req, res, next) => {
-  
   if (!req.headers.cookie) {
     return res.status(401).json({
       success: false,
       message: "Unauthorized: No token provided",
+      redirectToLoginPage: true
     });
   }
   const token = Object.fromEntries(
@@ -21,9 +21,6 @@ export const adminAuthenticationHandler = async (req, res, next) => {
   let decodedToken = undefined;
   if (token) {
     decodedToken = verifyJWTToken(token, process.env.JWT_TOKEN_KEY);
-  }
-  if(decodedToken) {
-     next();
   }
 
   let decodedRefreshToken = undefined;
@@ -43,9 +40,17 @@ export const adminAuthenticationHandler = async (req, res, next) => {
   }
 
   const adminId = decodedRefreshToken.adminId;
-  const adminRefreshTokenFromDB =
+  let adminRefreshTokenFromDB = undefined;
+  try{
+    adminRefreshTokenFromDB =
     await adminRefreshTokenForDB.findOne({ adminId });
-
+  }catch(error){
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      data: error,
+    });
+  }
     if (refreshTokenOfAdmin !== adminRefreshTokenFromDB.refreshToken) {
       return res.status(401).json({
         success: false,
@@ -53,7 +58,8 @@ export const adminAuthenticationHandler = async (req, res, next) => {
         adminRedirectToLogin: true
       });
     }
-
+    
+     req.adminId = decodedRefreshToken.adminId;
   if (!decodedToken && !decodedRefreshToken) {
     return res.status(401).json({
       success: false,
@@ -79,15 +85,15 @@ export const adminAuthenticationHandler = async (req, res, next) => {
       maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
     });
 
-    const refreshTokenSave = await adminRefreshTokenForDB.findOneAndUpdate(
-      { adminId },
-      { refreshToken: newAdminRefreshToken },
-      { 
-        upsert: true, 
-        returnDocument: "after"
-       }
-    );
-    await refreshTokenSave.save();
+      const refreshTokenSave = await adminRefreshTokenForDB.findOneAndUpdate(
+        { adminId },
+        { refreshToken: newAdminRefreshToken },
+        { 
+          upsert: true, 
+          returnDocument: "after"
+        }
+      );
+      await refreshTokenSave.save();
+    }
     next();
-  }
 };
