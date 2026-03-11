@@ -53,7 +53,6 @@ export const adminLogin = async (req, res) => {
             refreshToken,
         });
     } catch (error) {
-        console.error("Login error ", error);
         res.status(500).json({
             message: "Internal Server Error",
             error: error,

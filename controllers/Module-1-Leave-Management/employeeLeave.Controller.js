@@ -1,5 +1,5 @@
 import EmployeeLeave from "../../models/Module-1-Leave-Management/employeeLeaveModel.js";
-import Employee from "../../models/Module-1-Leave-Management/AdminRefreshToken.js";
+import Employee from "../../models/Module-1-Leave-Management/employeeRegistrationModel.js";
 import employeeLeaveValidation from "../../validations/Module-1-Leave-Management/employeeLeaveValidation.js";
 export const employeeleave = async (req, res) => {
     
@@ -9,15 +9,17 @@ export const employeeleave = async (req, res) => {
             message: validation.details[0].message
         })
     }else{
-        const existingUser = await Employee.findOne({email: validation.email})
-        if(!existingUser){
+        console.log("validation:", validation.email);
+        const existingEmployee = await Employee.findOne({email: validation.email})
+        console.log("existingEmployee:", existingEmployee);
+        if(!existingEmployee){
             return res.status(400).json({
                 message: "Employee not found"
             })
         }
 
         const employeeOnLeave = await EmployeeLeave.findOne({
-            employeeId: existingUser._id,
+            employeeId: existingEmployee._id,
         }).sort({ createdAt: -1 });
 
          if(employeeOnLeave && employeeOnLeave.startDate <= validation.endDate && employeeOnLeave.endDate >= validation.startDate){
@@ -31,7 +33,7 @@ export const employeeleave = async (req, res) => {
                 startDate: validation.startDate,
                 endDate: validation.endDate,
                 reason: validation.reason,
-                employeeId: existingUser._id
+                employeeId: existingEmployee._id
             });
 
             await leave.save();

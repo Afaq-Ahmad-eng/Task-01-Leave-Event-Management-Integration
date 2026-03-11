@@ -4,8 +4,6 @@ export const approveOrRejectLeave = async(req,res) =>{
     try{
         const { status, remark } = req.body
         if(status === "Approved"){
-
-            
             if(!["Approved", "Rejected"].includes(status)){
                 return res.status(400).json({
             success: false,
@@ -18,7 +16,6 @@ export const approveOrRejectLeave = async(req,res) =>{
         employeeId: leaveId
     };
     const leave = await EmployeeLeave.findOne({ employeeId: employeeId.employeeId }).sort({ createdAt: -1 });
-    console.log("leave:", leave);
     
     if(!leave){
         return res.status(404).json({
@@ -84,7 +81,6 @@ export const approveOrRejectLeave = async(req,res) =>{
     })
 }
 }catch(error){
-    console.error("Error in approveOrRejectLeave: ", error);
     res.status(500).json({
         success: false,
         message: "Internal Server Error",

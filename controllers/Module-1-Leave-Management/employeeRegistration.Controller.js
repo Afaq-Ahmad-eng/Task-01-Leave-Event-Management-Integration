@@ -1,9 +1,10 @@
-import Employee from "../../models/Module-1-Leave-Management/employeeLeaveModel.js";
+import Employee from "../../models/Module-1-Leave-Management/employeeRegistrationModel.js";
 import { employeeRegistrationPasswordHash } from "../../utils/Module-1-Leave-Management/passwordHash.js";
 import { validationOfEmployeeRegistrationData } from "../../validations/Module-1-Leave-Management/employeeRegistrationValidation.js";
 export const employeeRegistration = async (req,res) => {
+    let validationResult = undefined;
     try{
-    const validationResult = validationOfEmployeeRegistrationData(req.body);
+        validationResult = validationOfEmployeeRegistrationData(req.body);
         if(validationResult.details){
         return res.status(400).json({
             message: validationResult.details[0].message
@@ -24,7 +25,7 @@ export const employeeRegistration = async (req,res) => {
             subCategoryPosition: validationResult.subCategoryPosition,
             password: newGeneratedHashOfPassward
         });
-
+        
         await employee.save();
 
         res.status(200).json({
@@ -33,7 +34,6 @@ export const employeeRegistration = async (req,res) => {
         })
     }
 }}catch(error){
-    console.error("Registration error ", error);
     res.status(500).json({
         message: "Internal Server Error",
         error: error
