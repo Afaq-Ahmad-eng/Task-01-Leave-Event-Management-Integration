@@ -36,7 +36,7 @@ export const adminLogin = async (req, res) => {
             refreshToken: refreshToken
         }, {
             upsert: true,
-            new: true
+            returnDocument: "after",
         });
  
         res.cookie("adminRefreshToken", refreshToken, {
