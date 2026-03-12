@@ -51,7 +51,7 @@ export const adminAuthenticationHandler = async (req, res, next) => {
       data: error,
     });
   }
-    if (refreshTokenOfAdmin !== adminRefreshTokenFromDB.refreshToken) {
+    if (refreshTokenOfAdmin !== adminRefreshTokenFromDB?.refreshToken) {
       return res.status(401).json({
         success: false,
         message: "Unauthorized: Invalid token",
