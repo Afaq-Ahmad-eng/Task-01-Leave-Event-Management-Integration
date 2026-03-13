@@ -4,7 +4,8 @@ const adminPanel = async (req, res) => {
 
     const allEmployeeLeaveData = await EmployeeLeave.find();
     res.status(200).json({
-        message: "Admin panel accessed successfully",
+        success: true,
+        message: "Welcome to the admin panel",
         leaveData: allEmployeeLeaveData,
     });
 };

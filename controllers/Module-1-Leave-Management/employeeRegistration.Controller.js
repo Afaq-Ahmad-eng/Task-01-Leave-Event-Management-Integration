@@ -7,12 +7,14 @@ export const employeeRegistration = async (req,res) => {
         validationResult = validationOfEmployeeRegistrationData(req.body);
         if(validationResult.details){
         return res.status(400).json({
+            success: false,
             message: validationResult.details[0].message
         })
     }else{
     const existingEmail = await Employee.findOne({email: validationResult.email});
     if(existingEmail){
         return res.status(400).json({
+            success: false,
             message: "Your are already register!",
         })
     }else{
@@ -29,12 +31,14 @@ export const employeeRegistration = async (req,res) => {
         await employee.save();
 
         res.status(200).json({
-        message:"Employee Register successfully ",
-        employeeId: employee._id
+            success: true,
+            message: "Employee registered successfully",
+            employeeId: employee._id
         })
     }
 }}catch(error){
     res.status(500).json({
+        success: false,
         message: "Internal Server Error",
         error: error
     })

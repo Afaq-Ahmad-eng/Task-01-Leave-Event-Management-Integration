@@ -11,15 +11,12 @@ export const approveOrRejectLeave = async(req,res) =>{
         })
     }
     const leaveId = req.params.leaveId;
-    console.log("leaveId:", leaveId);
     
     const leaveIdObj = {
         leaveId: leaveId
     };
-
-    console.log("leaveIdObj:", leaveIdObj); 
     const leave = await EmployeeLeave.findOne({ _id: leaveIdObj.leaveId }).sort({ createdAt: -1 });
-console.log("leave:", leave);
+
     if(!leave){
         return res.status(404).json({
             success: false,

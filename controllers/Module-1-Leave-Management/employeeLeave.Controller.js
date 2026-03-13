@@ -6,6 +6,7 @@ export const employeeleave = async (req, res) => {
     const validation = employeeLeaveValidation(req.body);
     if(validation.details){
         return res.status(400).json({
+            success: false,
             message: validation.details[0].message
         })
     }else{
@@ -13,6 +14,7 @@ export const employeeleave = async (req, res) => {
 
         if(!existingEmployee){
             return res.status(400).json({
+                success: false,
                 message: "Employee not found"
             })
         }
@@ -23,6 +25,7 @@ export const employeeleave = async (req, res) => {
 
          if(employeeOnLeave && employeeOnLeave.startDate <= validation.endDate && employeeOnLeave.endDate >= validation.startDate){
             return res.status(400).json({
+                success: false,
                 message: "Dear employee you have on leave and you don't allow that you paste a another leave request!",
             })
         }
@@ -37,11 +40,13 @@ export const employeeleave = async (req, res) => {
 
             await leave.save();
             res.status(201).json({
-                message: "Your leave request has pass to the HR",
+                success: true,
+                message: "Your leave request has been submitted to the HR",
                 leaveId: leave._id
             })
         }catch(error){
         return res.status(400).json({
+            success: false,
             message: "Error occurred while processing leave request",
             data: error
         })

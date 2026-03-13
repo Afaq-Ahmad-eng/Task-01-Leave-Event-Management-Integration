@@ -3,6 +3,7 @@ import { employeeRegistrationPasswordHash } from "../../utils/Module-1-Leave-Man
 import adminRegistrationValidationHandler from "../../validations/Module-1-Leave-Management/adminRegistrationValidation.js";
 
 const Admin = async (req, res) => {
+  try {
   const existingAdmin = await adminRegistration.findOne({
     AdminEmail: req.body.AdminEmail,
   });
@@ -12,12 +13,14 @@ const Admin = async (req, res) => {
     // if a record exists and the role is not plain 'admin', block
     if (existingAdmin.role && existingAdmin.role !== "admin") {
       return res.status(400).json({
+        success: false,
         message: "You are not authorized to access this resource!"
       });
     }
 
     // admin already exists, don't create another with same email
     return res.status(400).json({
+        success: false,
       message: "Admin already registered",
     });
   } else {
@@ -27,6 +30,7 @@ const Admin = async (req, res) => {
     );
     if (adminRegistrationDataValidation.details) {
       return res.status(400).json({
+        success: false,
         message: "Error occur due to the validation fail",
       });
     } else {
@@ -41,10 +45,18 @@ const Admin = async (req, res) => {
 
       await adminRegistrationInstance.save();
       res.status(200).json({
-        message: "Admin Register successfully",
+        success: true,
+        message: "Registered successfully",
         AdminId: adminRegistrationInstance._id,
       });
     }
+  }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error,
+    });
   }
 };
 

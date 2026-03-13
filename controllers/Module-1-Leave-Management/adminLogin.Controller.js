@@ -10,12 +10,14 @@ export const adminLogin = async (req, res) => {
         const existingAdmin = await adminRegistration.findOne({ AdminEmail });
         if (!existingAdmin) {
             return res.status(400).json({
+                success: false,
                 message: "Admin not found",
             });
         }
         const isPasswordValid = await employeeLoginPasswordVerification(AdminPassword, existingAdmin.AdminPassword);
         if (!isPasswordValid) {
             return res.status(400).json({
+                success: false,
                 message: "Invalid password",
             });
         }
@@ -48,12 +50,14 @@ export const adminLogin = async (req, res) => {
         });
         
         res.status(200).json({
+            success: true,
             message: "Admin login successful",
             token,
             refreshToken,
         });
     } catch (error) {
         res.status(500).json({
+            success: false,
             message: "Internal Server Error",
             error: error,
         });
