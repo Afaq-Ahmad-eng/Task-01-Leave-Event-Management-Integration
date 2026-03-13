@@ -9,9 +9,8 @@ export const employeeleave = async (req, res) => {
             message: validation.details[0].message
         })
     }else{
-        console.log("validation:", validation.email);
         const existingEmployee = await Employee.findOne({email: validation.email})
-        console.log("existingEmployee:", existingEmployee);
+
         if(!existingEmployee){
             return res.status(400).json({
                 message: "Employee not found"
