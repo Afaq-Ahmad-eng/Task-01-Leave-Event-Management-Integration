@@ -9,6 +9,7 @@ const eventEditByAdmin = async (req, res) => {
     const validationResult = validateEventData(req.body);
     if (validationResult.error) {
       return res.status(400).json({
+        success: false,
         message: "Validation failed",
         errors: validationResult.error.details[0].message,
       });

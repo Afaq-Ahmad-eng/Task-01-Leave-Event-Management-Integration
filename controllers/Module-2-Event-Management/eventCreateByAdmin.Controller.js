@@ -15,6 +15,7 @@ const EventCreateByAdmin = async (req, res) => {
     const validationResult = validateEventData(req.body);
     if (validationResult.error) {
       return res.status(400).json({
+        succcess: false,
         message: "Validation failed",
         errors: validationResult.error.details[0].message,
       });
@@ -29,6 +30,7 @@ const EventCreateByAdmin = async (req, res) => {
 
     if (eventData) {
       return res.status(400).json({
+        success: false,
         message:
           "Event has already created now if you want to change something then go and edit!.",
       });
@@ -61,6 +63,7 @@ const EventCreateByAdmin = async (req, res) => {
   } catch (error) {
     console.error("Error in EventCreateByAdmin: ", error);
     res.status(500).json({
+      success: false,
       message: "Internal Server Error",
       error: error,
     });
